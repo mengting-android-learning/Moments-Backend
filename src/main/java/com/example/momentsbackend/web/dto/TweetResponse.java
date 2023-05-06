@@ -1,15 +1,19 @@
 package com.example.momentsbackend.web.dto;
 
 import com.example.momentsbackend.domain.Sender;
-import com.example.momentsbackend.domain.Comment;
+import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.TweetImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class TweetResponse {
 
@@ -23,6 +27,6 @@ public class TweetResponse {
 
     private Sender sender;
 
-    private List<Comment> comments;
+    private List<TweetComment> comments;
 
 }

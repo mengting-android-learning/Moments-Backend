@@ -1,6 +1,6 @@
 package com.example.momentsbackend.web;
 
-import com.example.momentsbackend.domain.Comment;
+import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.Sender;
 import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.service.TweetService;
@@ -35,7 +35,7 @@ public class TweetControllerTest {
                 null,
                 new ArrayList<TweetImage>(),
                 new Sender(1L,null, null, null),
-                new ArrayList<Comment>()
+                new ArrayList<TweetComment>()
         )));
 
         mvc.perform(MockMvcRequestBuilders.get("/tweets"))
