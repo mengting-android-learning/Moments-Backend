@@ -1,9 +1,11 @@
 package com.example.momentsbackend.service;
 
+import com.example.momentsbackend.domain.Sender;
 import com.example.momentsbackend.entity.TweetCommentEntity;
 import com.example.momentsbackend.entity.TweetEntity;
 import com.example.momentsbackend.entity.TweetImageEntity;
 import com.example.momentsbackend.entity.UserEntity;
+import com.example.momentsbackend.mapper.UserMapper;
 import com.example.momentsbackend.repository.TweetCommentRepository;
 import com.example.momentsbackend.repository.TweetImageRepository;
 import com.example.momentsbackend.repository.TweetRepository;
@@ -23,6 +25,7 @@ public class TweetService {
     private final UserRepository userRepository;
     private final TweetImageRepository imageRepository;
     private final TweetCommentRepository commentRepository;
+    private final UserMapper userMapper;
 
     public List<TweetResponse> findAll() {
         List<TweetEntity> tweetEntities = tweetRepository.findAll();
@@ -32,6 +35,9 @@ public class TweetService {
             List<TweetCommentEntity> commentEntities = commentRepository.getCommentsByTweetId(tweet.getId());
             for(TweetCommentEntity commentEntity:commentEntities){
                 Optional<UserEntity> commentSender = userRepository.findById(commentEntity.getSenderId());
+            }
+            if(senderEntity.isPresent()) {
+                Sender sender = userMapper.toDto(senderEntity.get());
             }
         }
         return Collections.emptyList();
