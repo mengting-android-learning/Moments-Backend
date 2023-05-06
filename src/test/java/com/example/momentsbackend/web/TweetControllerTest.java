@@ -30,9 +30,11 @@ public class TweetControllerTest {
     @Test
     void should_return_list_with_empty_tweet() throws Exception {
         when(service.findAll()).thenReturn(List.of(new TweetResponse(
+                1L,
+                null,
                 null,
                 new ArrayList<TweetImage>(),
-                new Sender(null, null, null),
+                new Sender(1L,null, null, null),
                 new ArrayList<Comment>()
         )));
 

@@ -7,16 +7,12 @@ import com.example.momentsbackend.web.dto.TweetResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class TweetService {
     public List<TweetResponse> findAll() {
-        return List.of(new TweetResponse(
-                null,
-                new ArrayList<TweetImage>(),
-                new Sender("userName", "nick", "avatar"),
-                new ArrayList<Comment>()
-        ));
+        return Collections.emptyList();
     }
 }
