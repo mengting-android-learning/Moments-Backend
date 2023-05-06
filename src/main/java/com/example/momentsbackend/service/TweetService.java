@@ -18,6 +18,9 @@ public class TweetService {
     private final TweetImageRepository imageRepository;
     public List<TweetResponse> findAll() {
         List<TweetEntity> tweetEntities = tweetRepository.findAll();
+        for(TweetEntity tweet:tweetEntities){
+            List<TweetImageEntity> imageEntities = imageRepository.getImagesByTweetId(tweet.getId());
+        }
         return Collections.emptyList();
     }
 }
