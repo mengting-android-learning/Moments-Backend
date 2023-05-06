@@ -5,10 +5,8 @@ import com.example.momentsbackend.entity.TweetCommentEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class TweetMapperTest {
-    //    @Autowired
     private ModelMapper mapper = new ModelMapper();
     private TweetMapper tweetMapper = new TweetMapper(mapper);
 
