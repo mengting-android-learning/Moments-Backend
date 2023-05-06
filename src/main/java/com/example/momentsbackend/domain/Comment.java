@@ -10,6 +10,6 @@ import java.sql.Timestamp;
 public class Comment {
     private Long id;
     private String content;
-    private Timestamp timestamp;
+    private Timestamp createdOn;
     private Sender sender;
 }
