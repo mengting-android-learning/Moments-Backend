@@ -66,7 +66,7 @@ public class TweetService {
 
     private Sender getSender(Long senderId) {
         Optional<UserEntity> senderEntity = userRepository.findById(senderId);
-        return senderEntity.map(userMapper::toDto).orElse(null);
+        return senderEntity.map(userMapper::toDomainSender).orElse(null);
     }
 
     private List<TweetComment> getComments(Long id) {
