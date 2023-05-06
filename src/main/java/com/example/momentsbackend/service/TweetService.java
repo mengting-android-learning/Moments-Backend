@@ -1,8 +1,10 @@
 package com.example.momentsbackend.service;
 
+import com.example.momentsbackend.entity.TweetCommentEntity;
 import com.example.momentsbackend.entity.TweetEntity;
 import com.example.momentsbackend.entity.TweetImageEntity;
 import com.example.momentsbackend.entity.UserEntity;
+import com.example.momentsbackend.repository.TweetCommentRepository;
 import com.example.momentsbackend.repository.TweetImageRepository;
 import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
@@ -20,12 +22,17 @@ public class TweetService {
     private final TweetRepository tweetRepository;
     private final UserRepository userRepository;
     private final TweetImageRepository imageRepository;
+    private final TweetCommentRepository commentRepository;
 
     public List<TweetResponse> findAll() {
         List<TweetEntity> tweetEntities = tweetRepository.findAll();
         for (TweetEntity tweet : tweetEntities) {
             Optional<UserEntity> senderEntity = userRepository.findById(tweet.getSenderId());
             List<TweetImageEntity> imageEntities = imageRepository.getImagesByTweetId(tweet.getId());
+            List<TweetCommentEntity> commentEntities = commentRepository.getCommentsByTweetId(tweet.getId());
+            for(TweetCommentEntity commentEntity:commentEntities){
+                Optional<UserEntity> commentSender = userRepository.findById(commentEntity.getSenderId());
+            }
         }
         return Collections.emptyList();
     }
