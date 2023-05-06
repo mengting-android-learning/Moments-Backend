@@ -17,7 +17,7 @@ public class TweetResponse {
 
     private String content;
 
-    private Timestamp timestamp;
+    private Timestamp createdOn;
 
     private List<TweetImage> images;
 

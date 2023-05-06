@@ -1,0 +1,7 @@
+CREATE TABLE `tweets`
+(
+    `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `content` VARCHAR(200) NULL,
+    `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `sender_id` BIGINT NOT NULL
+);
