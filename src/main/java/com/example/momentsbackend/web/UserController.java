@@ -20,7 +20,6 @@ public class UserController {
 
     @PostMapping
     public User saveUser(@RequestBody CreateUserRequest user) {
-        System.out.println(System.currentTimeMillis());
         return service.saveUser(user);
     }
 
