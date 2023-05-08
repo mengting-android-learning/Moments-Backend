@@ -26,4 +26,9 @@ public class TweetEntity {
 
     @Column(name = "sender_id")
     private Long senderId;
+
+    @PrePersist
+    public void prePersist() {
+        createdOn = new Timestamp(System.currentTimeMillis());
+    }
 }

@@ -14,4 +14,5 @@ public interface TweetImageRepository extends JpaRepository<TweetImageEntity, Lo
     )
     List<TweetImageEntity> getImagesByTweetId(Long id);
 
+    TweetImageEntity save(TweetImageEntity image);
 }

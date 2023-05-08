@@ -13,6 +13,8 @@ import com.example.momentsbackend.repository.TweetCommentRepository;
 import com.example.momentsbackend.repository.TweetImageRepository;
 import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
+import com.example.momentsbackend.web.dto.CreateTweetImagesRequest;
+import com.example.momentsbackend.web.dto.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.TweetResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TweetService {
+
     private final TweetRepository tweetRepository;
     private final UserRepository userRepository;
     private final TweetImageRepository imageRepository;
@@ -41,6 +44,16 @@ public class TweetService {
                 tweetEntities.stream()
                         .map(this::getTweetResponse)
                         .collect(Collectors.toList());
+    }
+
+    public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
+        TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), null, tweetRequest.getUserId()));
+        if (!tweetRequest.getImages().isEmpty()) {
+            for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
+                imageRepository.save(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
+            }
+        }
+        return getTweetResponse(tweetEntity);
     }
 
     private TweetResponse getTweetResponse(TweetEntity tweetEntity) {
@@ -81,5 +94,4 @@ public class TweetService {
         );
         return comments;
     }
-
 }
