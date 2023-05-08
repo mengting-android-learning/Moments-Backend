@@ -1,5 +1,6 @@
-package com.example.momentsbackend.web.dto;
+package com.example.momentsbackend.web.dto.request;
 
+import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateTweetRequest {
     private Long userId;
+
     private String content;
 
     private List<CreateTweetImagesRequest> images;

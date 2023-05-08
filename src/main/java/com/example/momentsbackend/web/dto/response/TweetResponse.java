@@ -1,4 +1,4 @@
-package com.example.momentsbackend.web.dto;
+package com.example.momentsbackend.web.dto.response;
 
 import com.example.momentsbackend.domain.Sender;
 import com.example.momentsbackend.domain.TweetComment;

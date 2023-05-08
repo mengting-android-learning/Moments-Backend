@@ -4,7 +4,7 @@ import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.Sender;
 import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.service.TweetService;
-import com.example.momentsbackend.web.dto.TweetResponse;
+import com.example.momentsbackend.web.dto.response.TweetResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
