@@ -1,4 +1,4 @@
-package com.example.momentsbackend.dto;
+package com.example.momentsbackend.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
