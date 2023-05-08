@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TweetCommentRepository extends JpaRepository<TweetCommentEntity, Long> {
     @Query(
-            value = "SELECT * FROM tweet_comments WHERE tweet_id = id",
+            value = "SELECT * FROM tweet_comments WHERE tweet_id = ?1",
             nativeQuery = true
     )
     List<TweetCommentEntity> getCommentsByTweetId(Long id);

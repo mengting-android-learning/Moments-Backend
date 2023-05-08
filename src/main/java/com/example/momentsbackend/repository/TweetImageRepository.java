@@ -9,7 +9,7 @@ import java.util.List;
 public interface TweetImageRepository extends JpaRepository<TweetImageEntity, Long> {
 
     @Query(
-            value = "SELECT * FROM tweet_images WHERE tweet_id = id",
+            value = "SELECT * FROM tweet_images WHERE tweet_id = ?1",
             nativeQuery = true
     )
     List<TweetImageEntity> getImagesByTweetId(Long id);
