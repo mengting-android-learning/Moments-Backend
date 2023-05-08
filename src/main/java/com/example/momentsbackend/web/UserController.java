@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService service;
+
     @PostMapping
     public User saveUser(@RequestBody CreateUserRequest user) {
         return service.saveUser(user);
+    }
+
+    @GetMapping
+    public User findUserByName(@RequestParam(name = "name") String userName) {
+        return service.findUserByName(userName);
     }
 }

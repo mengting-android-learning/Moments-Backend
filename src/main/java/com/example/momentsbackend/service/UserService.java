@@ -13,10 +13,18 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+
     private final UserMapper userMapper;
+
     public User saveUser(CreateUserRequest userRequest) {
         UserEntity entity = userMapper.toEntity(userRequest);
         UserEntity savedUserEntity = userRepository.save(entity);
         return userMapper.toDomainUser(savedUserEntity);
     }
+
+    public User findUserByName(String userName) {
+        UserEntity userEntity = userRepository.findUserByName(userName);
+        return userMapper.toDomainUser(userEntity);
+    }
+
 }
