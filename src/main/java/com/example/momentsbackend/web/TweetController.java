@@ -30,6 +30,7 @@ public class TweetController {
         return service.saveTweet(tweetRequest);
     }
 
+    @PostMapping("/comments")
     public TweetComment saveComment(@RequestBody CreateCommentRequest commentRequest) {
         return service.saveComment(commentRequest);
     }
