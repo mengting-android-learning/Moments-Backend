@@ -50,7 +50,7 @@ public class TweetService {
     public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
         if (userRepository.existsById(tweetRequest.getUserId())) {
             TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
-            if (!tweetRequest.getImages().isEmpty()) {
+            if (tweetRequest.getImages() != null) {
                 for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
                     imageRepository.save(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
                 }
@@ -86,7 +86,7 @@ public class TweetService {
         List<TweetImageEntity> imageEntities = imageRepository.getImagesByTweetId(id);
         return imageEntities.stream()
                 .map(tweetMapper::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     private Sender getSender(Long senderId) {

@@ -18,8 +18,13 @@ public class UserService {
 
     public User saveUser(CreateUserRequest userRequest) {
         UserEntity entity = userMapper.toEntity(userRequest);
-        UserEntity savedUserEntity = userRepository.save(entity);
-        return userMapper.toDomainUser(savedUserEntity);
+        UserEntity optionalUserEntity = userRepository.findUserByName(entity.getUserName());
+        if (optionalUserEntity != null) {
+            return userMapper.toDomainUser(optionalUserEntity);
+        } else {
+            UserEntity savedUserEntity = userRepository.save(entity);
+            return userMapper.toDomainUser(savedUserEntity);
+        }
     }
 
     public User findUserByName(String userName) {
