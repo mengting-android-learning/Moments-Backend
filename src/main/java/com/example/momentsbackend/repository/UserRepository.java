@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             nativeQuery = true
     )
     UserEntity findUserByName(String userName);
+
+    boolean existsById(Long id);
 }
