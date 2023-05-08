@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequest {
+
     private String profileImage;
 
     private String avatar;
@@ -17,4 +18,5 @@ public class CreateUserRequest {
     private String nick;
 
     private String userName;
+
 }

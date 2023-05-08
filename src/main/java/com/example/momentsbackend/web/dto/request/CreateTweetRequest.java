@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateTweetRequest {
+
     private Long userId;
 
     private String content;
@@ -19,4 +20,5 @@ public class CreateTweetRequest {
     private Long createdOn;
 
     private List<CreateTweetImagesRequest> images;
+
 }

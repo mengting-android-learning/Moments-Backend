@@ -10,10 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCommentRequest {
+
     private Long senderId;
+
     private Long tweetId;
-    private String content;
 
     private Long createdOn;
+
+    private String content;
 
 }
