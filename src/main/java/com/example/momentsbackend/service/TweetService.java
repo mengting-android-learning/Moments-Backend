@@ -13,12 +13,14 @@ import com.example.momentsbackend.repository.TweetCommentRepository;
 import com.example.momentsbackend.repository.TweetImageRepository;
 import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
+import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +49,7 @@ public class TweetService {
 
     public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
         if (userRepository.existsById(tweetRequest.getUserId())) {
-            TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), null, tweetRequest.getUserId()));
+            TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
             if (!tweetRequest.getImages().isEmpty()) {
                 for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
                     imageRepository.save(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
@@ -56,6 +58,14 @@ public class TweetService {
             return getTweetResponse(tweetEntity);
         } else
             return null;
+    }
+
+    public TweetComment saveComment(CreateCommentRequest commentRequest) {
+        TweetCommentEntity commentEntity = commentRepository.save(new TweetCommentEntity(null, commentRequest.getContent(),
+                commentRequest.getCreatedOn(), commentRequest.getTweetId(), commentRequest.getSenderId()));
+        TweetComment comment = tweetMapper.toDomain(commentEntity);
+        comment.setSender(getSender(commentEntity.getSenderId()));
+        return comment;
     }
 
     private TweetResponse getTweetResponse(TweetEntity tweetEntity) {

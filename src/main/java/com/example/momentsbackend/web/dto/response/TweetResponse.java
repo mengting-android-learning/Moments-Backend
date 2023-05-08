@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -21,7 +19,7 @@ public class TweetResponse {
 
     private String content;
 
-    private Timestamp createdOn;
+    private Long createdOn;
 
     private List<TweetImage> images;
 

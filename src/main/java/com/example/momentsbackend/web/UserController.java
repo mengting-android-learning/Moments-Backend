@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -21,6 +20,7 @@ public class UserController {
 
     @PostMapping
     public User saveUser(@RequestBody CreateUserRequest user) {
+        System.out.println(System.currentTimeMillis());
         return service.saveUser(user);
     }
 

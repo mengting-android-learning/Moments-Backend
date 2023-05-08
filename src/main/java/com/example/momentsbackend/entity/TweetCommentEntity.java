@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 @Entity
 @Table(name = "tweet_comments")
 @Getter
@@ -22,11 +20,12 @@ public class TweetCommentEntity {
     private String content;
 
     @Column(name = "created_on")
-    private Timestamp createdOn;
+    private Long createdOn;
 
     @Column(name = "tweet_id")
     private Long tweetId;
 
     @Column(name = "sender_id")
     private Long senderId;
+
 }

@@ -1,6 +1,5 @@
 package com.example.momentsbackend.web.dto.request;
 
-import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,8 @@ public class CreateTweetRequest {
     private Long userId;
 
     private String content;
+
+    private Long createdOn;
 
     private List<CreateTweetImagesRequest> images;
 }

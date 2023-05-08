@@ -1,6 +1,8 @@
 package com.example.momentsbackend.web;
 
+import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.service.TweetService;
+import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,12 @@ public class TweetController {
     }
 
     @PostMapping
-    public TweetResponse saveTweet(@RequestBody CreateTweetRequest tweetRequest){
+    public TweetResponse saveTweet(@RequestBody CreateTweetRequest tweetRequest) {
         return service.saveTweet(tweetRequest);
+    }
+
+    public TweetComment saveComment(@RequestBody CreateCommentRequest commentRequest) {
+        return service.saveComment(commentRequest);
     }
 
 }

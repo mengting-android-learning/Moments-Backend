@@ -1,4 +1,4 @@
-package com.example.momentsbackend.domain;
+package com.example.momentsbackend.web.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TweetComment {
-    private Long id;
+public class CreateCommentRequest {
+    private Long senderId;
+    private Long tweetId;
     private String content;
+
     private Long createdOn;
-    private Sender sender;
+
 }
