@@ -1,6 +1,8 @@
 package com.example.momentsbackend.web;
 
 import com.example.momentsbackend.domain.User;
+import com.example.momentsbackend.exception.UserDoesNotExistException;
+import com.example.momentsbackend.exception.UserNameExistsException;
 import com.example.momentsbackend.service.UserService;
 import com.example.momentsbackend.web.dto.request.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +21,17 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    public User saveUser(@RequestBody CreateUserRequest user) {
+    public User saveUser(@RequestBody CreateUserRequest user) throws Exception {
+        if (service.findUserByName(user.getUserName()) != null)
+            throw new UserNameExistsException(user.getUserName());
         return service.saveUser(user);
     }
 
     @GetMapping
-    public User findUserByName(@RequestParam(name = "name") String userName) {
-        return service.findUserByName(userName);
+    public User findUserByName(@RequestParam(name = "name") String userName) throws Exception {
+        User user = service.findUserByName(userName);
+        if (user == null)
+            throw new UserDoesNotExistException("name:" + userName);
+        return user;
     }
 }
