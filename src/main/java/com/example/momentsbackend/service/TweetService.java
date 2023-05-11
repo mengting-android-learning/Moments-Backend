@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,12 +38,12 @@ public class TweetService {
     private final TweetMapper tweetMapper;
 
     public List<TweetResponse> findAll() {
-        List<TweetEntity> tweetEntities = tweetRepository.findAll();
+        List<TweetEntity> tweetEntities = tweetRepository.findAllByOrderByCreatedOnDesc();
         return CollectionUtils.isEmpty(tweetEntities) ?
                 Collections.emptyList() :
                 tweetEntities.stream()
                         .map(this::getTweetResponse)
-                        .collect(Collectors.toList());
+                        .toList();
     }
 
     public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
@@ -86,7 +85,7 @@ public class TweetService {
         List<TweetImageEntity> imageEntities = imageRepository.getImagesByTweetId(id);
         return imageEntities.stream()
                 .map(tweetMapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Sender getSender(Long senderId) {
