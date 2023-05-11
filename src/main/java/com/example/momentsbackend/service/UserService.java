@@ -9,6 +9,8 @@ import com.example.momentsbackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -17,8 +19,8 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public User saveUser(CreateUserRequest userRequest) throws UserNameExistsException {
-        if(userRepository.findUserByName(userRequest.getUserName())!=null){
+    public User saveUser(CreateUserRequest userRequest) throws Exception {
+        if (userRepository.findUserByName(userRequest.getUserName()).isPresent()) {
             throw new UserNameExistsException(userRequest.getUserName());
         }
         UserEntity entity = userMapper.toEntity(userRequest);
@@ -27,8 +29,8 @@ public class UserService {
     }
 
     public User findUserByName(String userName) {
-        UserEntity userEntity = userRepository.findUserByName(userName);
-        return userMapper.toDomainUser(userEntity);
+        Optional<UserEntity> userEntity = userRepository.findUserByName(userName);
+        return userEntity.map(userMapper::toDomainUser).orElse(null);
     }
 
 }
