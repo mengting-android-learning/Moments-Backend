@@ -1,6 +1,7 @@
 package com.example.momentsbackend.service;
 
 import com.example.momentsbackend.domain.User;
+import com.example.momentsbackend.exception.UserNameExistsException;
 import com.example.momentsbackend.web.dto.request.CreateUserRequest;
 import com.example.momentsbackend.entity.UserEntity;
 import com.example.momentsbackend.mapper.UserMapper;
@@ -16,15 +17,13 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public User saveUser(CreateUserRequest userRequest) {
-        UserEntity entity = userMapper.toEntity(userRequest);
-        UserEntity optionalUserEntity = userRepository.findUserByName(entity.getUserName());
-        if (optionalUserEntity != null) {
-            return userMapper.toDomainUser(optionalUserEntity);
-        } else {
-            UserEntity savedUserEntity = userRepository.save(entity);
-            return userMapper.toDomainUser(savedUserEntity);
+    public User saveUser(CreateUserRequest userRequest) throws UserNameExistsException {
+        if(userRepository.findUserByName(userRequest.getUserName())!=null){
+            throw new UserNameExistsException(userRequest.getUserName());
         }
+        UserEntity entity = userMapper.toEntity(userRequest);
+        UserEntity savedUserEntity = userRepository.save(entity);
+        return userMapper.toDomainUser(savedUserEntity);
     }
 
     public User findUserByName(String userName) {

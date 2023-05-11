@@ -22,8 +22,6 @@ public class UserController {
 
     @PostMapping
     public User saveUser(@RequestBody CreateUserRequest user) throws Exception {
-        if (service.findUserByName(user.getUserName()) != null)
-            throw new UserNameExistsException(user.getUserName());
         return service.saveUser(user);
     }
 
