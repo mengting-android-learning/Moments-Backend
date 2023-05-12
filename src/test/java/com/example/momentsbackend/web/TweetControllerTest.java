@@ -10,6 +10,7 @@ import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,8 +119,8 @@ public class TweetControllerTest {
     }
 
 
-    @BeforeAll
-    static void setup() {
+    @BeforeEach
+    void setup() {
 
         tweet = new TweetResponse(
                 1L,
