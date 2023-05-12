@@ -9,4 +9,6 @@ public interface TweetRepository extends JpaRepository<TweetEntity, Long> {
     List<TweetEntity> findAllByOrderByCreatedOnDesc();
 
     TweetEntity save(TweetEntity tweetEntity);
+
+    void deleteById(Long Id);
 }

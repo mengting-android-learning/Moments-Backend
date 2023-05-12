@@ -7,7 +7,9 @@ import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,11 @@ public class TweetController {
     @PostMapping("/comments")
     public TweetComment saveComment(@Valid @RequestBody CreateCommentRequest commentRequest) {
         return service.saveComment(commentRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteTweet(@PathVariable String id) {
+        return service.deleteTweet(Long.valueOf(id));
     }
 
 }

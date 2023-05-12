@@ -102,4 +102,11 @@ public class TweetService {
         );
         return comments;
     }
+
+    public boolean deleteTweet(Long id) {
+        commentRepository.deleteByTweetId(id);
+        imageRepository.deleteByTweetId(id);
+        tweetRepository.deleteById(id);
+        return true;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.momentsbackend.repository;
 
 import com.example.momentsbackend.entity.TweetCommentEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,4 +13,7 @@ public interface TweetCommentRepository extends JpaRepository<TweetCommentEntity
             nativeQuery = true
     )
     List<TweetCommentEntity> getCommentsByTweetId(Long id);
+
+    @Transactional
+    void deleteByTweetId(Long id);
 }

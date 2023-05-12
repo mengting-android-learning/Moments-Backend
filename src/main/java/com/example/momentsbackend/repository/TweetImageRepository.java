@@ -1,6 +1,7 @@
 package com.example.momentsbackend.repository;
 
 import com.example.momentsbackend.entity.TweetImageEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,4 +16,7 @@ public interface TweetImageRepository extends JpaRepository<TweetImageEntity, Lo
     List<TweetImageEntity> getImagesByTweetId(Long id);
 
     TweetImageEntity save(TweetImageEntity image);
+
+    @Transactional
+    List<TweetImageEntity> deleteByTweetId(Long id);
 }
