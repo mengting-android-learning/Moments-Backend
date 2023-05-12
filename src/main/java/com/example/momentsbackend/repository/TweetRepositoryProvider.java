@@ -39,7 +39,7 @@ public class TweetRepositoryProvider implements TweetRepository {
     }
 
     @Override
-    public List<TweetImage> getImagesByTweetId(Long id) {
+    public List<TweetImage> findImagesByTweetId(Long id) {
         List<TweetImageEntity> imagesEntities = imageRepository.getImagesByTweetId(id);
         return imagesEntities.stream()
                 .map(tweetMapper::toDomain)
@@ -59,7 +59,7 @@ public class TweetRepositoryProvider implements TweetRepository {
     }
 
     @Override
-    public List<TweetComment> getCommentsByTweetId(Long id) {
+    public List<TweetComment> findCommentsByTweetId(Long id) {
         List<TweetCommentEntity> commentEntities = commentRepository.getCommentsByTweetId(id);
         return commentEntities.stream()
                 .map(tweetMapper::toDomain)

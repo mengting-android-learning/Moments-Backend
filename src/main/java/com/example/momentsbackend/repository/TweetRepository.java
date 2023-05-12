@@ -17,13 +17,13 @@ public interface TweetRepository {
 
     void deleteById(Long id);
 
-    List<TweetImage> getImagesByTweetId(Long id);
+    List<TweetImage> findImagesByTweetId(Long id);
 
     TweetImage saveImage(TweetImageEntity image);
 
     void deleteImagesByTweetId(Long id);
 
-    List<TweetComment> getCommentsByTweetId(Long id);
+    List<TweetComment> findCommentsByTweetId(Long id);
 
     void deleteCommentsByTweetId(Long id);
 

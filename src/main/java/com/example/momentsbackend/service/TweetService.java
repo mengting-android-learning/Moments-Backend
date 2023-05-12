@@ -6,7 +6,6 @@ import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.entity.TweetCommentEntity;
 import com.example.momentsbackend.entity.TweetEntity;
 import com.example.momentsbackend.entity.TweetImageEntity;
-import com.example.momentsbackend.mapper.TweetMapper;
 import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
@@ -50,7 +49,7 @@ public class TweetService {
         TweetComment comment = tweetRepository.saveComment(
                 new TweetCommentEntity(null, commentRequest.getContent(),
                         commentRequest.getCreatedOn(), commentRequest.getTweetId(), commentRequest.getSenderId()));
-        comment.setSender(getSender(comment.getSender().getId()));
+        comment.setSender(userRepository.findSenderById(comment.getSender().getId()));
         return comment;
     }
 
@@ -62,9 +61,11 @@ public class TweetService {
     }
 
     private TweetResponse getTweetResponse(TweetEntity tweetEntity) {
-        Sender sender = getSender(tweetEntity.getSenderId());
-        List<TweetImage> images = getImages(tweetEntity.getId());
-        List<TweetComment> comments = getComments(tweetEntity.getId());
+        Sender sender = userRepository.findSenderById(tweetEntity.getId());
+        List<TweetImage> images = tweetRepository.findImagesByTweetId(tweetEntity.getId());
+        List<TweetComment> comments = (tweetRepository.findCommentsByTweetId(tweetEntity.getId()));
+        comments.forEach(comment ->
+                comment.setSender(userRepository.findSenderById(comment.getSender().getId())));
         return new TweetResponse(
                 tweetEntity.getId(),
                 tweetEntity.getContent(),
@@ -74,22 +75,5 @@ public class TweetService {
                 comments
         );
     }
-
-    private List<TweetImage> getImages(Long id) {
-        return tweetRepository.getImagesByTweetId(id);
-    }
-
-    private Sender getSender(Long senderId) {
-        return userRepository.findSenderById(senderId);
-    }
-
-    private List<TweetComment> getComments(Long id) {
-        List<TweetComment> comments = tweetRepository.getCommentsByTweetId(id);
-        comments.forEach(
-                comment -> comment.setSender(getSender(comment.getSender().getId()))
-        );
-        return comments;
-    }
-
 
 }
