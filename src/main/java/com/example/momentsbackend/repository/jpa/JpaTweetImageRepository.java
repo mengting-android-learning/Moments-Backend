@@ -1,4 +1,4 @@
-package com.example.momentsbackend.repository;
+package com.example.momentsbackend.repository.jpa;
 
 import com.example.momentsbackend.entity.TweetImageEntity;
 import jakarta.transaction.Transactional;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface TweetImageRepository extends JpaRepository<TweetImageEntity, Long> {
+public interface JpaTweetImageRepository extends JpaRepository<TweetImageEntity, Long> {
 
     @Query(
             value = "SELECT * FROM tweet_images WHERE tweet_id = ?1",
@@ -18,5 +18,5 @@ public interface TweetImageRepository extends JpaRepository<TweetImageEntity, Lo
     TweetImageEntity save(TweetImageEntity image);
 
     @Transactional
-    List<TweetImageEntity> deleteByTweetId(Long id);
+    void deleteByTweetId(Long id);
 }
