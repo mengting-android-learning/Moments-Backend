@@ -5,6 +5,7 @@ import com.example.momentsbackend.service.TweetService;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +27,12 @@ public class TweetController {
     }
 
     @PostMapping
-    public TweetResponse saveTweet(@RequestBody CreateTweetRequest tweetRequest) {
+    public TweetResponse saveTweet(@Valid @RequestBody CreateTweetRequest tweetRequest) {
         return service.saveTweet(tweetRequest);
     }
 
     @PostMapping("/comments")
-    public TweetComment saveComment(@RequestBody CreateCommentRequest commentRequest) {
+    public TweetComment saveComment(@Valid @RequestBody CreateCommentRequest commentRequest) {
         return service.saveComment(commentRequest);
     }
 

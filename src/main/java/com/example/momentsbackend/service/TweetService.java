@@ -47,16 +47,13 @@ public class TweetService {
     }
 
     public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
-        if (userRepository.existsById(tweetRequest.getUserId())) {
-            TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
-            if (tweetRequest.getImages() != null) {
-                for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
-                    imageRepository.save(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
-                }
+        TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
+        if (tweetRequest.getImages() != null) {
+            for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
+                imageRepository.save(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
             }
-            return getTweetResponse(tweetEntity);
-        } else
-            return null;
+        }
+        return getTweetResponse(tweetEntity);
     }
 
     public TweetComment saveComment(CreateCommentRequest commentRequest) {
