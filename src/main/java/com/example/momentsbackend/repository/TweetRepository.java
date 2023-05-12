@@ -1,14 +1,31 @@
 package com.example.momentsbackend.repository;
 
+import com.example.momentsbackend.domain.TweetComment;
+import com.example.momentsbackend.domain.TweetImage;
+import com.example.momentsbackend.entity.TweetCommentEntity;
 import com.example.momentsbackend.entity.TweetEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.momentsbackend.entity.TweetImageEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface TweetRepository extends JpaRepository<TweetEntity, Long> {
-    List<TweetEntity> findAllByOrderByCreatedOnDesc();
+@Repository
+public interface TweetRepository {
+    List<TweetEntity> findAll();
 
     TweetEntity save(TweetEntity tweetEntity);
 
-    void deleteById(Long Id);
+    void deleteById(Long id);
+
+    List<TweetImage> getImagesByTweetId(Long id);
+
+    TweetImage saveImage(TweetImageEntity image);
+
+    void deleteImagesByTweetId(Long id);
+
+    List<TweetComment> getCommentsByTweetId(Long id);
+
+    void deleteCommentsByTweetId(Long id);
+
+    TweetComment saveComment(TweetCommentEntity tweetCommentEntity);
 }
