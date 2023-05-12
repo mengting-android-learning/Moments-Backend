@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorResult handleException(Exception e) {
-        return new ErrorResult(e.getClass() + e.getMessage());
+        return new ErrorResult(e.getClass() + ": " + e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
