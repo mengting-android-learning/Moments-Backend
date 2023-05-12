@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository {
-    
-    public Sender findSenderById(Long id);
-    
-    public User findUserByName(String name);
-    
-    public User saveUser(CreateUserRequest request);
+
+    Sender findSenderById(Long id);
+
+    User findUserByName(String name);
+
+    User saveUser(CreateUserRequest request);
 }
