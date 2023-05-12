@@ -37,7 +37,7 @@ public class TweetService {
 
     public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
         TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
-        if (tweetRequest.getImages() != null) {
+        if (tweetRequest.getImages() != null && tweetRequest.getImages().size() != 0) {
             for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
                 tweetRepository.saveImage(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
             }
