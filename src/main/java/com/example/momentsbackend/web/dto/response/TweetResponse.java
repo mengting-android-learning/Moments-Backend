@@ -1,6 +1,6 @@
 package com.example.momentsbackend.web.dto.response;
 
-import com.example.momentsbackend.domain.Sender;
+import com.example.momentsbackend.domain.BaseUser;
 import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.TweetImage;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class TweetResponse {
 
     private List<TweetImage> images;
 
-    private Sender sender;
+    private BaseUser sender;
 
     private List<TweetComment> comments;
 

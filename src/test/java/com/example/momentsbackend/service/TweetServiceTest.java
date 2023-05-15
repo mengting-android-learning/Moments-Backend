@@ -1,6 +1,6 @@
 package com.example.momentsbackend.service;
 
-import com.example.momentsbackend.domain.Sender;
+import com.example.momentsbackend.domain.BaseUser;
 import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.entity.TweetCommentEntity;
 import com.example.momentsbackend.entity.TweetEntity;
@@ -54,10 +54,10 @@ public class TweetServiceTest {
                         new TweetComment(1L,
                                 "content",
                                 System.currentTimeMillis(),
-                                new Sender(1L, null, null, null))
+                                new BaseUser(1L, null, null, null))
                 )
         );
-        when(userRepository.findSenderById(1L)).thenReturn(new Sender(1L, "name", "nick", "avatar"));
+        when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
         List<TweetResponse> tweets = tweetService.findAll();
 
@@ -79,7 +79,7 @@ public class TweetServiceTest {
                 .thenReturn(new TweetEntity(1L, "content", System.currentTimeMillis(), 1L));
         when(tweetRepository.findImagesByTweetId(1L)).thenReturn(Collections.emptyList());
         when(tweetRepository.findCommentsByTweetId(1L)).thenReturn(Collections.emptyList());
-        when(userRepository.findSenderById(1L)).thenReturn(new Sender(1L, "name", "nick", "avatar"));
+        when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
         TweetResponse tweetResponse = tweetService.saveTweet(new CreateTweetRequest(1L,
                 null,
@@ -101,7 +101,7 @@ public class TweetServiceTest {
         when(tweetRepository.findImagesByTweetId(1L)).thenReturn(Collections.emptyList());
         when(tweetRepository.findCommentsByTweetId(1L)).thenReturn(Collections.emptyList());
         when(tweetRepository.saveImage(Mockito.any(TweetImageEntity.class))).thenReturn(null);
-        when(userRepository.findSenderById(1L)).thenReturn(new Sender(1L, "name", "nick", "avatar"));
+        when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
 
         TweetResponse tweetResponse = tweetService.saveTweet(new CreateTweetRequest(1L,
@@ -123,10 +123,10 @@ public class TweetServiceTest {
                         1L,
                         "content",
                         null,
-                        new Sender(1L, null, null, null)
+                        new BaseUser(1L, null, null, null)
                 )
         );
-        when(userRepository.findSenderById(1L)).thenReturn(new Sender(1L, "name", "nick", "avatar"));
+        when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
         TweetComment comment = tweetService.saveComment(new CreateCommentRequest(1L, 1L, null, "content"));
 

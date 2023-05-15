@@ -1,6 +1,6 @@
 package com.example.momentsbackend.service;
 
-import com.example.momentsbackend.domain.Sender;
+import com.example.momentsbackend.domain.BaseUser;
 import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.entity.TweetCommentEntity;
@@ -61,7 +61,7 @@ public class TweetService {
     }
 
     private TweetResponse getTweetResponse(TweetEntity tweetEntity) {
-        Sender sender = userRepository.findSenderById(tweetEntity.getId());
+        BaseUser sender = userRepository.findSenderById(tweetEntity.getId());
         List<TweetImage> images = tweetRepository.findImagesByTweetId(tweetEntity.getId());
         List<TweetComment> comments = (tweetRepository.findCommentsByTweetId(tweetEntity.getId()));
         comments.forEach(comment ->

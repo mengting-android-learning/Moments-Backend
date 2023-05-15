@@ -13,5 +13,5 @@ public class TweetComment {
     private Long id;
     private String content;
     private Long createdOn;
-    private Sender sender;
+    private BaseUser sender;
 }

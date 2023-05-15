@@ -97,7 +97,7 @@ public class UserControllerTest {
     @BeforeEach
     void setUp() {
         userRequest = new CreateUserRequest("profile", "avatar", "nick", "name");
-        user = new User(1L, "profile", "avatar", "nick", "name");
+        user = new User(1L, "name", "nick", "avatar", "profile");
         mapper = new ObjectMapper();
     }
 

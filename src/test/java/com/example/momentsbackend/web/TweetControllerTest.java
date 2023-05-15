@@ -1,6 +1,6 @@
 package com.example.momentsbackend.web;
 
-import com.example.momentsbackend.domain.Sender;
+import com.example.momentsbackend.domain.BaseUser;
 import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.service.TweetService;
@@ -9,7 +9,6 @@ import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -127,7 +126,7 @@ public class TweetControllerTest {
                 "content",
                 1683863092647L,
                 List.of(new TweetImage("url")),
-                new Sender(1L, "userName", "nick", "avatar"),
+                new BaseUser(1L, "userName", "nick", "avatar"),
                 Collections.emptyList()
         );
 
@@ -141,7 +140,7 @@ public class TweetControllerTest {
         comment = new TweetComment(1L,
                 "content",
                 1683863092647L,
-                new Sender(1L, "userName", "nick", "avatar"));
+                new BaseUser(1L, "userName", "nick", "avatar"));
 
         commentRequest = new CreateCommentRequest(1L, 1L, 1683863092647L, "content");
 

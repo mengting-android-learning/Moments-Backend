@@ -1,6 +1,6 @@
 package com.example.momentsbackend.repository;
 
-import com.example.momentsbackend.domain.Sender;
+import com.example.momentsbackend.domain.BaseUser;
 import com.example.momentsbackend.domain.User;
 import com.example.momentsbackend.entity.UserEntity;
 import com.example.momentsbackend.mapper.UserMapper;
@@ -20,7 +20,7 @@ public class UserRepositoryProvider implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
-    public Sender findSenderById(Long id) {
+    public BaseUser findSenderById(Long id) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
         return userEntity.map(userMapper::toDomainSender).orElse(null);
     }
