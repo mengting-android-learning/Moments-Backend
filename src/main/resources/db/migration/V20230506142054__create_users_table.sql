@@ -4,5 +4,5 @@ CREATE TABLE `users`
     `profile_image` VARCHAR(1000) NULL,
     `avatar` VARCHAR(1000) NULL,
     `nick` VARCHAR(255) NULL,
-    `user_name` VARCHAR(255) NOT NULL UNIQUE KEY
+    `user_name` VARCHAR(255) NOT NULL UNIQUE
 );

@@ -16,4 +16,6 @@ public interface JpaTweetCommentRepository extends JpaRepository<TweetCommentEnt
 
     @Transactional
     void deleteByTweetId(Long id);
+
+    TweetCommentEntity save(TweetCommentEntity tweetCommentEntity);
 }
