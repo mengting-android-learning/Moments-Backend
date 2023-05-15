@@ -10,7 +10,7 @@ import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
-import com.example.momentsbackend.web.dto.response.TweetResponse;
+import com.example.momentsbackend.domain.Tweet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,7 +25,7 @@ public class TweetService {
     private final UserRepository userRepository;
     private final TweetRepository tweetRepository;
 
-    public List<TweetResponse> findAll() {
+    public List<Tweet> findAll() {
         List<TweetEntity> tweetEntities = tweetRepository.findAll();
         return CollectionUtils.isEmpty(tweetEntities) ?
                 Collections.emptyList() :
@@ -34,18 +34,17 @@ public class TweetService {
                         .toList();
     }
 
-    public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
+    public Tweet saveTweet(CreateTweetRequest tweetRequest) {
         TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
-        if (tweetRequest.getImages() != null && tweetRequest.getImages().size() != 0) {
-            List<TweetImage> images = tweetRequest.getImages();
-            saveTweetImages(tweetEntity, images);
+        if (tweetRequest.getImages() != null) {
+            saveTweetImages(tweetEntity.getId(), tweetRequest.getImages());
         }
         return getTweetResponse(tweetEntity);
     }
 
-    private void saveTweetImages(TweetEntity tweetEntity, List<TweetImage> images) {
+    private void saveTweetImages(Long tweetId, List<TweetImage> images) {
         for (TweetImage image : images) {
-            tweetRepository.saveImage(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
+            tweetRepository.saveImage(new TweetImageEntity(null, image.getUrl(), tweetId));
         }
     }
 
@@ -64,11 +63,11 @@ public class TweetService {
         return true;
     }
 
-    private TweetResponse getTweetResponse(TweetEntity tweetEntity) {
+    private Tweet getTweetResponse(TweetEntity tweetEntity) {
         List<TweetImage> images = getImagesByTweetId(tweetEntity.getId());
         BaseUser sender = getSenderBySenderId(tweetEntity.getSenderId());
         List<TweetComment> comments = getCommentsByTweetId(tweetEntity.getId());
-        return new TweetResponse(
+        return new Tweet(
                 tweetEntity.getId(),
                 tweetEntity.getContent(),
                 tweetEntity.getCreatedOn(),

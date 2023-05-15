@@ -6,7 +6,7 @@ import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.service.TweetService;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
-import com.example.momentsbackend.web.dto.response.TweetResponse;
+import com.example.momentsbackend.domain.Tweet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class TweetControllerTest {
     @MockBean
     private TweetService service;
 
-    private static TweetResponse tweet;
+    private static Tweet tweet;
 
     private static CreateTweetRequest request;
 
@@ -120,7 +120,7 @@ public class TweetControllerTest {
     @BeforeEach
     void setup() {
 
-        tweet = new TweetResponse(
+        tweet = new Tweet(
                 1L,
                 "content",
                 1683863092647L,

@@ -10,7 +10,7 @@ import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
-import com.example.momentsbackend.web.dto.response.TweetResponse;
+import com.example.momentsbackend.domain.Tweet;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,7 +39,7 @@ public class TweetServiceTest {
     @Test
     void should_return_empty_tweets_list() {
         when(tweetRepository.findAll()).thenReturn(Collections.emptyList());
-        List<TweetResponse> tweets = tweetService.findAll();
+        List<Tweet> tweets = tweetService.findAll();
         assertEquals(tweets, Collections.emptyList());
     }
 
@@ -59,7 +59,7 @@ public class TweetServiceTest {
         );
         when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
-        List<TweetResponse> tweets = tweetService.findAll();
+        List<Tweet> tweets = tweetService.findAll();
 
         assertEquals(tweets.size(), 1);
         assertEquals(tweets.get(0).getContent(), "content");
@@ -81,14 +81,14 @@ public class TweetServiceTest {
         when(tweetRepository.findCommentsByTweetId(1L)).thenReturn(Collections.emptyList());
         when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
-        TweetResponse tweetResponse = tweetService.saveTweet(new CreateTweetRequest(1L,
+        Tweet tweet = tweetService.saveTweet(new CreateTweetRequest(1L,
                 null,
                 null,
                 null));
 
-        assertEquals(tweetResponse.getId(), 1L);
-        assertEquals(tweetResponse.getImages(), Collections.emptyList());
-        assertEquals(tweetResponse.getComments(), Collections.emptyList());
+        assertEquals(tweet.getId(), 1L);
+        assertEquals(tweet.getImages(), Collections.emptyList());
+        assertEquals(tweet.getComments(), Collections.emptyList());
         verify(tweetRepository, times(0)).saveImage(Mockito.any());
     }
 
@@ -104,15 +104,15 @@ public class TweetServiceTest {
         when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
 
-        TweetResponse tweetResponse = tweetService.saveTweet(new CreateTweetRequest(1L,
+        Tweet tweet = tweetService.saveTweet(new CreateTweetRequest(1L,
                 null,
                 null,
                 List.of(new TweetImage("url"))));
 
 
-        assertEquals(tweetResponse.getId(), 1L);
-        assertEquals(tweetResponse.getImages(), Collections.emptyList());
-        assertEquals(tweetResponse.getComments(), Collections.emptyList());
+        assertEquals(tweet.getId(), 1L);
+        assertEquals(tweet.getImages(), Collections.emptyList());
+        assertEquals(tweet.getComments(), Collections.emptyList());
         verify(tweetRepository, times(1)).saveImage(Mockito.any());
     }
 

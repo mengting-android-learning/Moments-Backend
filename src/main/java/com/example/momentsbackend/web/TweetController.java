@@ -4,7 +4,7 @@ import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.service.TweetService;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
-import com.example.momentsbackend.web.dto.response.TweetResponse;
+import com.example.momentsbackend.domain.Tweet;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,12 +24,12 @@ public class TweetController {
     private final TweetService service;
 
     @GetMapping
-    public List<TweetResponse> fetchTweets() {
+    public List<Tweet> fetchTweets() {
         return service.findAll();
     }
 
     @PostMapping
-    public TweetResponse saveTweet(@Valid @RequestBody CreateTweetRequest tweetRequest) {
+    public Tweet saveTweet(@Valid @RequestBody CreateTweetRequest tweetRequest) {
         return service.saveTweet(tweetRequest);
     }
 

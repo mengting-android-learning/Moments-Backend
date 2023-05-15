@@ -1,8 +1,5 @@
-package com.example.momentsbackend.web.dto.response;
+package com.example.momentsbackend.domain;
 
-import com.example.momentsbackend.domain.BaseUser;
-import com.example.momentsbackend.domain.TweetComment;
-import com.example.momentsbackend.domain.TweetImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TweetResponse {
+public class Tweet {
 
     private Long id;
 
