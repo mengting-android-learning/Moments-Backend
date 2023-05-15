@@ -21,5 +21,4 @@ public class TweetMapper {
     public TweetComment toDomain(TweetCommentEntity tweetCommentEntity) {
         return mapper.map(tweetCommentEntity, TweetComment.class);
     }
-
 }

@@ -29,5 +29,4 @@ public class TweetEntity {
 
     @Column(name = "sender_id")
     private Long senderId;
-
 }

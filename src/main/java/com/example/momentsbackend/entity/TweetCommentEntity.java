@@ -27,5 +27,4 @@ public class TweetCommentEntity {
 
     @Column(name = "sender_id")
     private Long senderId;
-
 }
