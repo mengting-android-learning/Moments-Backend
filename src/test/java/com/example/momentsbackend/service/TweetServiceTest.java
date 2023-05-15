@@ -2,13 +2,13 @@ package com.example.momentsbackend.service;
 
 import com.example.momentsbackend.domain.BaseUser;
 import com.example.momentsbackend.domain.TweetComment;
+import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.entity.TweetCommentEntity;
 import com.example.momentsbackend.entity.TweetEntity;
 import com.example.momentsbackend.entity.TweetImageEntity;
 import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
-import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import org.junit.jupiter.api.Test;
@@ -107,7 +107,7 @@ public class TweetServiceTest {
         TweetResponse tweetResponse = tweetService.saveTweet(new CreateTweetRequest(1L,
                 null,
                 null,
-                List.of(new CreateTweetImagesRequest("url"))));
+                List.of(new TweetImage("url"))));
 
 
         assertEquals(tweetResponse.getId(), 1L);

@@ -9,7 +9,6 @@ import com.example.momentsbackend.entity.TweetImageEntity;
 import com.example.momentsbackend.repository.TweetRepository;
 import com.example.momentsbackend.repository.UserRepository;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
-import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import lombok.RequiredArgsConstructor;
@@ -38,18 +37,23 @@ public class TweetService {
     public TweetResponse saveTweet(CreateTweetRequest tweetRequest) {
         TweetEntity tweetEntity = tweetRepository.save(new TweetEntity(null, tweetRequest.getContent(), tweetRequest.getCreatedOn(), tweetRequest.getUserId()));
         if (tweetRequest.getImages() != null && tweetRequest.getImages().size() != 0) {
-            for (CreateTweetImagesRequest image : tweetRequest.getImages()) {
-                tweetRepository.saveImage(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
-            }
+            List<TweetImage> images = tweetRequest.getImages();
+            saveTweetImages(tweetEntity, images);
         }
         return getTweetResponse(tweetEntity);
+    }
+
+    private void saveTweetImages(TweetEntity tweetEntity, List<TweetImage> images) {
+        for (TweetImage image : images) {
+            tweetRepository.saveImage(new TweetImageEntity(null, image.getUrl(), tweetEntity.getId()));
+        }
     }
 
     public TweetComment saveComment(CreateCommentRequest commentRequest) {
         TweetComment comment = tweetRepository.saveComment(
                 new TweetCommentEntity(null, commentRequest.getContent(),
                         commentRequest.getCreatedOn(), commentRequest.getTweetId(), commentRequest.getSenderId()));
-        comment.setSender(userRepository.findSenderById(comment.getSender().getId()));
+        comment.setSender(getSenderBySenderId(comment.getSender().getId()));
         return comment;
     }
 
@@ -61,11 +65,9 @@ public class TweetService {
     }
 
     private TweetResponse getTweetResponse(TweetEntity tweetEntity) {
-        BaseUser sender = userRepository.findSenderById(tweetEntity.getId());
-        List<TweetImage> images = tweetRepository.findImagesByTweetId(tweetEntity.getId());
-        List<TweetComment> comments = (tweetRepository.findCommentsByTweetId(tweetEntity.getId()));
-        comments.forEach(comment ->
-                comment.setSender(userRepository.findSenderById(comment.getSender().getId())));
+        List<TweetImage> images = getImagesByTweetId(tweetEntity.getId());
+        BaseUser sender = getSenderBySenderId(tweetEntity.getSenderId());
+        List<TweetComment> comments = getCommentsByTweetId(tweetEntity.getId());
         return new TweetResponse(
                 tweetEntity.getId(),
                 tweetEntity.getContent(),
@@ -74,6 +76,21 @@ public class TweetService {
                 sender,
                 comments
         );
+    }
+
+    private List<TweetImage> getImagesByTweetId(Long id) {
+        return tweetRepository.findImagesByTweetId(id);
+    }
+
+    private BaseUser getSenderBySenderId(Long senderId) {
+        return userRepository.findSenderById(senderId);
+    }
+
+    private List<TweetComment> getCommentsByTweetId(Long id) {
+        List<TweetComment> comments = (tweetRepository.findCommentsByTweetId(id));
+        comments.forEach(comment ->
+                comment.setSender(getSenderBySenderId(comment.getSender().getId())));
+        return comments;
     }
 
 }

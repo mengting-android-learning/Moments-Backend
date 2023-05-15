@@ -5,7 +5,6 @@ import com.example.momentsbackend.domain.TweetComment;
 import com.example.momentsbackend.domain.TweetImage;
 import com.example.momentsbackend.service.TweetService;
 import com.example.momentsbackend.web.dto.request.CreateCommentRequest;
-import com.example.momentsbackend.web.dto.request.CreateTweetImagesRequest;
 import com.example.momentsbackend.web.dto.request.CreateTweetRequest;
 import com.example.momentsbackend.web.dto.response.TweetResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -133,7 +132,7 @@ public class TweetControllerTest {
         request = new CreateTweetRequest(1L,
                 "content",
                 1683863092647L,
-                List.of(new CreateTweetImagesRequest("url")));
+                List.of(new TweetImage("url")));
 
         mapper = new ObjectMapper();
 

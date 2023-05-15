@@ -1,5 +1,6 @@
 package com.example.momentsbackend.web.dto.request;
 
+import com.example.momentsbackend.domain.TweetImage;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,6 @@ public class CreateTweetRequest {
 
     private Long createdOn = System.currentTimeMillis();
 
-    private List<CreateTweetImagesRequest> images;
+    private List<TweetImage> images;
 
 }
