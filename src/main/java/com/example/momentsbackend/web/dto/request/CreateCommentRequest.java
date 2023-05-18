@@ -16,9 +16,6 @@ public class CreateCommentRequest {
     @NotNull
     private Long senderId;
 
-    @NotNull
-    private Long tweetId;
-
     private Long createdOn = System.currentTimeMillis();
 
     @NotNull

@@ -48,10 +48,10 @@ public class TweetService {
         }
     }
 
-    public TweetComment saveComment(CreateCommentRequest commentRequest) {
+    public TweetComment saveComment(String id, CreateCommentRequest commentRequest) {
         TweetComment comment = tweetRepository.saveComment(
                 new TweetCommentEntity(null, commentRequest.getContent(),
-                        commentRequest.getCreatedOn(), commentRequest.getTweetId(), commentRequest.getSenderId()));
+                        commentRequest.getCreatedOn(), Long.parseLong(id), commentRequest.getSenderId()));
         comment.setSender(getSenderBySenderId(comment.getSender().getId()));
         return comment;
     }

@@ -90,7 +90,7 @@ public class TweetControllerTest {
 
     @Test
     void should_return_saved_comment_when_save_new_tweet() throws Exception {
-        when(service.saveComment(Mockito.any(CreateCommentRequest.class))).thenReturn(comment);
+        when(service.saveComment("1", Mockito.any(CreateCommentRequest.class))).thenReturn(comment);
 
         mvc.perform(MockMvcRequestBuilders.post("/tweets/comments")
                         .accept(APPLICATION_JSON)
@@ -105,7 +105,7 @@ public class TweetControllerTest {
     @Test
     void should_throw_exception_when_save_comment_request_is_invalid() throws Exception {
 
-        commentRequest.setTweetId(null);
+        commentRequest.setSenderId(null);
 
         mvc.perform(MockMvcRequestBuilders.post("/tweets/comments")
                         .accept(APPLICATION_JSON)
@@ -141,7 +141,7 @@ public class TweetControllerTest {
                 1683863092647L,
                 new BaseUser(1L, "userName", "nick", "avatar"));
 
-        commentRequest = new CreateCommentRequest(1L, 1L, 1683863092647L, "content");
+        commentRequest = new CreateCommentRequest(1L, 1683863092647L, "content");
 
 
     }

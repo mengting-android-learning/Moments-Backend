@@ -33,9 +33,10 @@ public class TweetController {
         return service.saveTweet(tweetRequest);
     }
 
-    @PostMapping("/comments")
-    public TweetComment saveComment(@Valid @RequestBody CreateCommentRequest commentRequest) {
-        return service.saveComment(commentRequest);
+    @PostMapping("/{id}/comments")
+    public TweetComment saveComment(@PathVariable String id,
+                                    @Valid @RequestBody CreateCommentRequest commentRequest) {
+        return service.saveComment(id, commentRequest);
     }
 
     @DeleteMapping("/{id}")

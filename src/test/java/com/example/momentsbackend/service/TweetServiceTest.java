@@ -128,7 +128,7 @@ public class TweetServiceTest {
         );
         when(userRepository.findSenderById(1L)).thenReturn(new BaseUser(1L, "name", "nick", "avatar"));
 
-        TweetComment comment = tweetService.saveComment(new CreateCommentRequest(1L, 1L, null, "content"));
+        TweetComment comment = tweetService.saveComment("1", new CreateCommentRequest(1L, null, "content"));
 
         assertEquals(comment.getId(), 1L);
         assertEquals(comment.getSender().getNick(), "nick");
